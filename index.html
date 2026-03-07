@@ -168,20 +168,34 @@
             <h2>Access <span class="highlight">Vander Elite</span></h2>
             <p class="modal-subtitle">Sync your premium licenses.</p>
 
-            <div class="login-options">
-                <a href="https://discord.gg/yTX7Nh6r" target="_blank" class="btn-discord shine-fx">
+            <div class="login-tabs">
+                <button class="tab-btn active" id="tabLogin">Login</button>
+                <button class="tab-btn" id="tabSignup">Sign Up</button>
+            </div>
+
+            <div class="login-options" id="authContainer">
+                <button id="discordLogin" class="btn-discord shine-fx">
                     <img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a69f118df70ad7828d4_icon_clyde_blurple_RGB.svg"
                         alt="Discord Logo" class="discord-logo">
-                    Login with Discord
-                </a>
+                    Continue with Discord
+                </button>
+
+                <button id="googleLogin" class="btn-google shine-fx">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+                        alt="Google Logo" class="google-logo">
+                    Continue with Google
+                </button>
 
                 <div class="divider">
-                    <span>OR</span>
+                    <span id="authDividerText">OR LOGIN WITH KEY</span>
                 </div>
 
-                <form class="email-login">
-                    <input type="text" placeholder="License Key">
-                    <button type="submit" class="btn-primary"
+                <form class="email-login" id="authForm" onsubmit="event.preventDefault();">
+                    <input type="email" id="authEmail" class="auth-input animated-input" placeholder="Email Address"
+                        style="display: none; opacity: 0;">
+                    <input type="text" id="authKey" class="auth-input animated-input"
+                        placeholder="License Key / Password">
+                    <button type="button" class="btn-primary" id="authSubmitBtn"
                         style="width: 100%; justify-content: center; padding: 0.8rem;">Authenticate</button>
                 </form>
             </div>

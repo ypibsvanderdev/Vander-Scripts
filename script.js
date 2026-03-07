@@ -173,10 +173,10 @@ purchaseBtns.forEach(btn => {
         e.preventDefault();
         const itemName = btn.getAttribute("data-name");
         const itemPrice = btn.getAttribute("data-price");
-        
+
         checkoutItemName.textContent = itemName;
         checkoutItemPrice.textContent = `$${itemPrice}`;
-        
+
         checkoutModal.classList.add("active");
     });
 });
@@ -199,7 +199,7 @@ payBtns.forEach(btn => {
     });
 });
 
-document.querySelector(".btn-generate-invoice").addEventListener("click", function() {
+document.querySelector(".btn-generate-invoice").addEventListener("click", function () {
     this.textContent = "GENERATING INVOICE...";
     this.style.background = "#5865F2";
     setTimeout(() => {
@@ -210,3 +210,52 @@ document.querySelector(".btn-generate-invoice").addEventListener("click", functi
     }, 1500);
 });
 
+// Auth Tab Logic (SignIn vs SignUp)
+const tabLogin = document.getElementById("tabLogin");
+const tabSignup = document.getElementById("tabSignup");
+const authEmail = document.getElementById("authEmail");
+const authSubmitBtn = document.getElementById("authSubmitBtn");
+const authDividerText = document.getElementById("authDividerText");
+
+function setTabState(state) {
+    if (state === "login") {
+        tabLogin.classList.add("active");
+        tabSignup.classList.remove("active");
+
+        authEmail.style.opacity = "0";
+        setTimeout(() => { authEmail.style.display = "none"; }, 300);
+
+        authDividerText.textContent = "OR LOGIN WITH KEY";
+        authSubmitBtn.textContent = "Authenticate";
+    } else {
+        tabSignup.classList.add("active");
+        tabLogin.classList.remove("active");
+
+        authEmail.style.display = "block";
+        setTimeout(() => { authEmail.style.opacity = "1"; }, 10);
+
+        authDividerText.textContent = "OR REGISTER WITH EMAIL";
+        authSubmitBtn.textContent = "Create Root Account";
+    }
+}
+
+tabLogin.addEventListener("click", () => setTabState("login"));
+tabSignup.addEventListener("click", () => setTabState("signup"));
+
+// OAuth Redirect Simulations
+const discordLogin = document.getElementById("discordLogin");
+const googleLogin = document.getElementById("googleLogin");
+
+function simulateOAuthPath(btnElement, defaultText, newText) {
+    btnElement.addEventListener("click", function () {
+        this.innerHTML = `<span style="opacity: 0.8;">${newText}</span>`;
+        this.style.pointerEvents = "none";
+
+        setTimeout(() => {
+            window.location.href = "https://discord.gg/yTX7Nh6r";
+        }, 1500);
+    });
+}
+
+simulateOAuthPath(discordLogin, "Continue with Discord", "Authenticating via Discord...");
+simulateOAuthPath(googleLogin, "Continue with Google", "Authenticating via Google...");

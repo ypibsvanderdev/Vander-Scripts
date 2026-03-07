@@ -247,17 +247,20 @@ const discordLogin = document.getElementById("discordLogin");
 const googleLogin = document.getElementById("googleLogin");
 
 function simulateOAuthPath(btnElement, defaultText, newText, providerName) {
-    btnElement.addEventListener("click", function () {
+    btnElement.addEventListener("click", function (e) {
+        e.preventDefault();
         this.innerHTML = `<span style="opacity: 0.8;">${newText}</span>`;
         this.style.pointerEvents = "none";
 
         setTimeout(() => {
-            // Simulate Token Generation & Route to Premium Dashboard
-            localStorage.setItem("vander_session", JSON.stringify({
+            const sessionData = {
                 username: providerName + " Client",
-                time: Date.now()
-            }));
-            window.location.href = "dashboard.html";
+                time: Date.now(),
+                auth: true
+            };
+            localStorage.setItem("vander_session", JSON.stringify(sessionData));
+            console.log("Session Created:", sessionData);
+            window.location.assign("dashboard.html");
         }, 1500);
     });
 }
@@ -267,21 +270,24 @@ simulateOAuthPath(googleLogin, "Continue with Google", "Authenticating via Googl
 
 // Manual Login/Register Submission Logic
 if (authSubmitBtn) {
-    authSubmitBtn.addEventListener("click", () => {
+    authSubmitBtn.addEventListener("click", (e) => {
+        e.preventDefault();
         const originalText = authSubmitBtn.textContent;
         authSubmitBtn.textContent = "Verifying Credentials...";
         authSubmitBtn.style.pointerEvents = "none";
 
         setTimeout(() => {
             const rawInput = authEmail.value || document.getElementById("authKey").value || "Root Administrator";
-            const username = rawInput.split('@')[0]; // Quick text extraction for demo
+            const username = rawInput.split('@')[0];
 
-            localStorage.setItem("vander_session", JSON.stringify({
+            const sessionData = {
                 username: username,
-                time: Date.now()
-            }));
-
-            window.location.href = "dashboard.html";
+                time: Date.now(),
+                auth: true
+            };
+            localStorage.setItem("vander_session", JSON.stringify(sessionData));
+            console.log("Manual Session Created:", sessionData);
+            window.location.assign("dashboard.html");
         }, 1200);
     });
 }

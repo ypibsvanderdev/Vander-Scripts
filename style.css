@@ -496,3 +496,55 @@ footer {
 .terms { margin-top: 1.5rem; font-size: 0.8rem; color: var(--text-muted); }
 .terms a { color: var(--primary); text-decoration: none; }
 
+
+/* Scroll Reveal & Animations */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 3D Tilt Effect on Cards */
+.script-card {
+    will-change: transform, box-shadow;
+    transform-style: preserve-3d;
+}
+
+/* Button Shine Sweep Effect */
+.shine-fx, .btn-primary {
+    position: relative;
+    overflow: hidden;
+}
+.shine-fx::before, .btn-primary::before {
+    content: "";
+    position: absolute;
+    top: 0; left: -100%;
+    width: 50%; height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transform: skewX(-20deg);
+    animation: shineSweep 4s infinite;
+}
+@keyframes shineSweep {
+    0% { left: -100%; }
+    20% { left: 200%; }
+    100% { left: 200%; }
+}
+
+/* Custom Typewriter Caret */
+#typewriter {
+    border-right: 3px solid var(--primary);
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+    animation: blinkCaret 0.75s step-end infinite;
+}
+@keyframes blinkCaret {
+    from, to { border-color: transparent }
+    50% { border-color: var(--primary) }
+}
+

@@ -113,3 +113,49 @@ function typeWriter() {
     setTimeout(typeWriter, speed);
 }
 setTimeout(typeWriter, 1000);
+
+// Mobile Hamburger Menu 
+const mobileMenu = document.getElementById("mobile-menu");
+const navLinks = document.querySelector(".nav-links");
+
+mobileMenu.addEventListener("click", () => {
+    mobileMenu.classList.toggle("is-active");
+    navLinks.classList.toggle("active");
+});
+
+// Close mobile menu when a link is clicked
+navLinks.addEventListener("click", (e) => {
+    if (e.target.tagName === "A") {
+        mobileMenu.classList.remove("is-active");
+        navLinks.classList.remove("active");
+    }
+});
+
+// ParticleJS Configuration for Premium Space Effect
+if (typeof particlesJS !== "undefined") {
+    particlesJS("particles-js", {
+        particles: {
+            number: { value: 60, density: { enable: true, value_area: 800 } },
+            color: { value: ["#2196f3", "#9c27b0", "#ffffff"] },
+            shape: { type: "circle" },
+            opacity: { value: 0.5, random: true, anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false } },
+            size: { value: 3, random: true, anim: { enable: true, speed: 2, size_min: 0.1, sync: false } },
+            line_linked: { enable: true, distance: 150, color: "#2196f3", opacity: 0.2, width: 1 },
+            move: { enable: true, speed: 2, direction: "none", random: true, straight: false, out_mode: "out", bounce: false }
+        },
+        interactivity: {
+            detect_on: "canvas",
+            events: {
+                onhover: { enable: true, mode: "grab" },
+                onclick: { enable: true, mode: "push" },
+                resize: true
+            },
+            modes: {
+                grab: { distance: 140, line_linked: { opacity: 0.8 } },
+                push: { particles_nb: 3 }
+            }
+        },
+        retina_detect: true
+    });
+}
+

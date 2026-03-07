@@ -14,15 +14,22 @@
 <body>
 
     <!-- Dynamic Background Elements -->
+    <!-- Dynamic Background Elements -->
+    <div id="particles-js"></div>
     <div id="blob"></div>
-    <div id="blur"></div>
+    <div id="blur" style="pointer-events: none;"></div>
 
-    <div class="bg-orb orb-1"></div>
-    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-1" style="pointer-events: none;"></div>
+    <div class="bg-orb orb-2" style="pointer-events: none;"></div>
 
     <nav class="navbar">
         <div class="nav-logo">
             <span class="highlight">VANDER</span> ELITE
+        </div>
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
         </div>
         <div class="nav-links">
             <a href="#store" class="active">Store</a>
@@ -180,6 +187,8 @@
         </div>
     </div>
 
+    <!-- Particles.js Integration for extra animation depth -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="script.js"></script>
 </body>
 

@@ -3,19 +3,42 @@ document.addEventListener("DOMContentLoaded", () => {
     // Check if the user is authenticated via local storage
     const sessionToken = localStorage.getItem("vander_session");
     if (!sessionToken) {
-        // Force redirect back to login if they try to bypass
         window.location.href = "index.html";
         return;
     }
 
-    // Set Username based on dummy token
+    // Find actual user data
+    const users = JSON.parse(localStorage.getItem("vander_users") || "[]");
+    const session = JSON.parse(sessionToken);
+    const currentUser = users.find(u => u.username === session.username) || { username: session.username, purchased: [] };
+
+    // Set Username
     const userDisplay = document.getElementById("usernameDisplay");
-    try {
-        const parsedToken = JSON.parse(sessionToken);
-        if (parsedToken.username) {
-            userDisplay.textContent = parsedToken.username;
+    if (userDisplay) userDisplay.textContent = currentUser.username;
+
+    // Render Purchased Scripts
+    const scriptContainer = document.getElementById("purchasedScriptsList");
+    if (scriptContainer) {
+        if (!currentUser.purchased || currentUser.purchased.length === 0) {
+            scriptContainer.innerHTML = `
+                <div style="padding: 2rem; border: 1px dashed var(--glass-border); border-radius: 12px; text-align: center;">
+                    <p style="color: var(--text-muted);">No active licenses found.</p>
+                    <a href="index.html#store" style="color: var(--primary); font-weight: 700; text-decoration: none; margin-top: 10px; display: block;">Visit Store ↗</a>
+                </div>`;
+        } else {
+            scriptContainer.innerHTML = currentUser.purchased.map(script => `
+                <div class="purchased-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+                        <div>
+                            <p style="font-weight: 800; font-size: 1.1rem; color: #fff;">${script}</p>
+                            <p style="font-size: 0.8rem; color: #00ff88;">Status: ACTIVE</p>
+                        </div>
+                        <button class="action-btn copy-code-btn" data-script="${script}" style="width: auto; padding: 0.5rem 1rem;">Copy Code</button>
+                    </div>
+                </div>
+            `).join("");
         }
-    } catch (e) { }
+    }
 
     // Logout logic
     const logoutBtn = document.getElementById("logoutBtn");
@@ -30,26 +53,27 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Interactive Action Buttons
-    const actionBtns = document.querySelectorAll(".action-btn");
-    actionBtns.forEach(btn => {
+    // Copy Code Simulation
+    const copyBtns = document.querySelectorAll(".copy-code-btn");
+    copyBtns.forEach(btn => {
         btn.addEventListener("click", function () {
+            const scriptName = this.getAttribute("data-script");
             const originalText = this.textContent;
-            this.textContent = "Processing...";
-            this.style.opacity = "0.7";
+            this.textContent = "Copied!";
+            this.style.background = "#00ff88";
+            this.style.color = "#000";
+
+            console.log(`Copying code for: ${scriptName}`);
 
             setTimeout(() => {
-                this.textContent = originalText === "Download Loader (.exe)" ? "Loader Downloading..." : "Key Generated!";
-                this.style.opacity = "1";
-
-                if (originalText !== "Download Loader (.exe)") {
-                    setTimeout(() => { this.textContent = originalText; }, 2000);
-                }
-            }, 1000);
+                this.textContent = originalText;
+                this.style.background = "";
+                this.style.color = "";
+            }, 2000);
         });
     });
 
-    // ParticleJS Configuration for Dashboard (Subtle effect)
+    // ParticleJS Configuration
     if (typeof particlesJS !== "undefined") {
         particlesJS("particles-js", {
             particles: {

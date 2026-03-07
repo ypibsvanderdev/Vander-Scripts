@@ -167,47 +167,52 @@ const purchaseBtns = document.querySelectorAll(".purchase-btn");
 const checkoutItemName = document.getElementById("checkout-item-name");
 const checkoutItemPrice = document.getElementById("checkout-item-price");
 const payBtns = document.querySelectorAll(".pay-btn");
+const generateInvoiceBtn = document.querySelector(".btn-generate-invoice");
 
 purchaseBtns.forEach(btn => {
     btn.addEventListener("click", (e) => {
         e.preventDefault();
+        const session = JSON.parse(localStorage.getItem("vander_session"));
+        if (!session) {
+            alert("⚠️ You must be logged in to access the Secure Pay vault.");
+            loginModal.classList.add("active");
+            return;
+        }
+
         const itemName = btn.getAttribute("data-name");
         const itemPrice = btn.getAttribute("data-price");
 
         checkoutItemName.textContent = itemName;
         checkoutItemPrice.textContent = `$${itemPrice}`;
-
         checkoutModal.classList.add("active");
     });
 });
 
-closeCheckout.addEventListener("click", () => {
-    checkoutModal.classList.remove("active");
-});
+generateInvoiceBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    const session = JSON.parse(localStorage.getItem("vander_session"));
+    if (!session) return;
 
-window.addEventListener("click", (e) => {
-    if (e.target === checkoutModal) {
-        checkoutModal.classList.remove("active");
-    }
-});
-
-// Payment Method Selection
-payBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-        payBtns.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-    });
-});
-
-document.querySelector(".btn-generate-invoice").addEventListener("click", function () {
-    this.textContent = "GENERATING INVOICE...";
+    this.textContent = "VERIFYING CRYPTO NETWORK...";
     this.style.background = "#5865F2";
+    this.style.pointerEvents = "none";
+
     setTimeout(() => {
-        this.textContent = "REDIRECTING TO GATEWAY...";
+        // Record the 'Real' purchase in LocalStorage
+        const users = JSON.parse(localStorage.getItem("vander_users") || "[]");
+        const userIndex = users.findIndex(u => u.username === session.username);
+
+        if (userIndex !== -1) {
+            if (!users[userIndex].purchased) users[userIndex].purchased = [];
+            users[userIndex].purchased.push(checkoutItemName.textContent);
+            localStorage.setItem("vander_users", JSON.stringify(users));
+        }
+
+        this.textContent = "PURCHASE SUCCESSFUL! ⚡";
         setTimeout(() => {
-            window.location.href = "https://discord.gg/yTX7Nh6r";
+            window.location.assign("dashboard.html");
         }, 1500);
-    }, 1500);
+    }, 2500);
 });
 
 // Auth Tab Logic (SignIn vs SignUp)
@@ -242,10 +247,6 @@ function setTabState(state) {
 tabLogin.addEventListener("click", () => setTabState("login"));
 tabSignup.addEventListener("click", () => setTabState("signup"));
 
-// OAuth Redirect Simulations
-const discordLogin = document.getElementById("discordLogin");
-const googleLogin = document.getElementById("googleLogin");
-
 function simulateOAuthPath(btnElement, defaultText, newText, providerName) {
     btnElement.addEventListener("click", function (e) {
         e.preventDefault();
@@ -253,40 +254,66 @@ function simulateOAuthPath(btnElement, defaultText, newText, providerName) {
         this.style.pointerEvents = "none";
 
         setTimeout(() => {
-            const sessionData = {
-                username: providerName + " Client",
-                time: Date.now(),
-                auth: true
-            };
-            localStorage.setItem("vander_session", JSON.stringify(sessionData));
-            console.log("Session Created:", sessionData);
+            const username = providerName + " Client";
+            const users = JSON.parse(localStorage.getItem("vander_users") || "[]");
+            if (!users.find(u => u.username === username)) {
+                users.push({ username: username, purchased: [] });
+                localStorage.setItem("vander_users", JSON.stringify(users));
+            }
+
+            localStorage.setItem("vander_session", JSON.stringify({
+                username: username,
+                time: Date.now()
+            }));
             window.location.assign("dashboard.html");
         }, 1500);
     });
 }
 
-simulateOAuthPath(discordLogin, "Continue with Discord", "Authenticating via Discord...", "Discord");
-simulateOAuthPath(googleLogin, "Continue with Google", "Authenticating via Google...", "Google");
+simulateOAuthPath(discordLogin, "Continue with Discord", "Syncing Discord Account...", "Discord");
+simulateOAuthPath(googleLogin, "Continue with Google", "Linking Google Account...", "Google");
 
-// Manual Login/Register Submission Logic
 if (authSubmitBtn) {
     authSubmitBtn.addEventListener("click", (e) => {
         e.preventDefault();
-        const originalText = authSubmitBtn.textContent;
-        authSubmitBtn.textContent = "Verifying Credentials...";
+        const keyInput = document.getElementById("authKey");
+        const emailInput = document.getElementById("authEmail");
+        const isSignup = tabSignup.classList.contains("active");
+
+        if (isSignup && !emailInput.value) { alert("Please enter an email."); return; }
+        if (!keyInput.value) { alert("Please enter a username or key."); return; }
+
+        authSubmitBtn.textContent = isSignup ? "Creating Account..." : "Verifying...";
         authSubmitBtn.style.pointerEvents = "none";
 
         setTimeout(() => {
-            const rawInput = authEmail.value || document.getElementById("authKey").value || "Root Administrator";
-            const username = rawInput.split('@')[0];
+            const users = JSON.parse(localStorage.getItem("vander_users") || "[]");
+            const inputVal = isSignup ? emailInput.value : keyInput.value;
+            const username = inputVal.split('@')[0];
 
-            const sessionData = {
+            if (isSignup) {
+                if (users.find(u => u.username === username)) {
+                    alert("This account already exists! Try logging in.");
+                    setTabState("login");
+                    authSubmitBtn.textContent = "Authenticate";
+                    authSubmitBtn.style.pointerEvents = "all";
+                    return;
+                }
+                users.push({ username: username, purchased: [] });
+                localStorage.setItem("vander_users", JSON.stringify(users));
+            } else {
+                if (!users.find(u => u.username === username)) {
+                    alert("Account not found. Please Sign Up first!");
+                    authSubmitBtn.textContent = "Authenticate";
+                    authSubmitBtn.style.pointerEvents = "all";
+                    return;
+                }
+            }
+
+            localStorage.setItem("vander_session", JSON.stringify({
                 username: username,
-                time: Date.now(),
-                auth: true
-            };
-            localStorage.setItem("vander_session", JSON.stringify(sessionData));
-            console.log("Manual Session Created:", sessionData);
+                time: Date.now()
+            }));
             window.location.assign("dashboard.html");
         }, 1200);
     });

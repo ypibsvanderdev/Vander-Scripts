@@ -225,3 +225,23 @@ body {
         overflow-x: hidden;
     }
 }
+/* License Grid Styling */
+.license-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.purchased-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    padding: 1.5rem;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.purchased-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--primary);
+}
+

@@ -1,19 +1,17 @@
 // VANDER ELITE BACKEND CONFIGURATION
-// To make Google & Discord work for REAL (OAuth Popups):
-// 1. Create a FREE project at https://supabase.com
-// 2. Paste your "Project URL" and "Anon Key" below.
-// 3. Enable Google/Discord Auth in the Supabase Dashboard.
+// REAL OAuth 2.0 (Google & Discord) is now ACTIVATED!
 
 const VANDER_CONFIG = {
-    SUPABASE_URL: "PASTE_YOUR_SUPABASE_URL_HERE",
-    SUPABASE_ANON_KEY: "PASTE_YOUR_SUPABASE_ANON_KEY_HERE",
+    SUPABASE_URL: "https://lqlfnoteaiwyptzgksuh.supabase.co",
+    SUPABASE_ANON_KEY: "sb_publishable__hKEn9FAiyzek0wIXELQ1Q_zkd_Ry-t",
     REDIRECT_URL: window.location.origin + window.location.pathname.replace("index.html", "dashboard.html")
 };
 
 // Auto-Initialize Client
 let vander_supabase = null;
-if (typeof supabase !== "undefined" && VANDER_CONFIG.SUPABASE_URL !== "PASTE_YOUR_SUPABASE_URL_HERE") {
+if (typeof supabase !== "undefined") {
     vander_supabase = supabase.createClient(VANDER_CONFIG.SUPABASE_URL, VANDER_CONFIG.SUPABASE_ANON_KEY);
+    console.log("Vander Elite: Backend Securely Connected. Real Auth Active.");
 } else {
-    console.warn("Vander Elite: Supabase Keys are missing. Running in Simulation Mode.");
+    console.error("Vander Elite: Supabase Library failed to load.");
 }

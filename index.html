@@ -25,10 +25,10 @@
             <span class="highlight">VANDER</span> ELITE
         </div>
         <div class="nav-links">
-            <a href="#" class="active">Store</a>
-            <a href="#">Showcase</a>
-            <a href="#">Discord</a>
-            <a href="#" class="btn-login">Login</a>
+            <a href="#store" class="active">Store</a>
+            <a href="#showcase">Showcase</a>
+            <a href="https://discord.gg/yTX7Nh6r" target="_blank" rel="noopener noreferrer">Discord</a>
+            <a href="#" class="btn-login" id="loginBtn">Login</a>
         </div>
     </nav>
 
@@ -148,6 +148,36 @@
             <p class="disclaimer">Powered by the highest-UNC automation available.</p>
         </div>
     </footer>
+
+    <!-- Animated Login Modal -->
+    <div id="loginModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-glow"></div>
+            <button id="closeModal" class="btn-close">&times;</button>
+            <h2>Access <span class="highlight">Vander Elite</span></h2>
+            <p class="modal-subtitle">Sync your premium licenses.</p>
+
+            <div class="login-options">
+                <a href="https://discord.gg/yTX7Nh6r" class="btn-discord">
+                    <img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a69f118df70ad7828d4_icon_clyde_blurple_RGB.svg"
+                        alt="Discord Logo" class="discord-logo">
+                    Login with Discord
+                </a>
+
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+
+                <form class="email-login">
+                    <input type="text" placeholder="License Key">
+                    <button type="submit" class="btn-primary"
+                        style="width: 100%; justify-content: center; padding: 0.8rem;">Authenticate</button>
+                </form>
+            </div>
+
+            <p class="terms">By logging in, you agree to our <a href="#">Terms of Service</a>.</p>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

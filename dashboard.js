@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (e.target.classList.contains("copy-loader-btn")) {
             const fileName = e.target.getAttribute("data-file");
             // The Loader Tunnel URL - Hidden behind the SushiX Backend
-            const loaderCode = `loadstring(game:HttpGet("https://sushix-protect-elite.onrender.com/raw/${fileName}"))()`;
+            const loaderCode = `loadstring(game:HttpGet("https://sushix-protect-elite.onrender.com/v1/sx/secure-tunnel/${fileName}"))()`;
 
             navigator.clipboard.writeText(loaderCode).then(() => {
                 const originalText = e.target.textContent;

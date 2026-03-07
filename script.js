@@ -159,3 +159,54 @@ if (typeof particlesJS !== "undefined") {
     });
 }
 
+
+// Advanced Checkout Application Logic
+const checkoutModal = document.getElementById("checkoutModal");
+const closeCheckout = document.getElementById("closeCheckout");
+const purchaseBtns = document.querySelectorAll(".purchase-btn");
+const checkoutItemName = document.getElementById("checkout-item-name");
+const checkoutItemPrice = document.getElementById("checkout-item-price");
+const payBtns = document.querySelectorAll(".pay-btn");
+
+purchaseBtns.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const itemName = btn.getAttribute("data-name");
+        const itemPrice = btn.getAttribute("data-price");
+        
+        checkoutItemName.textContent = itemName;
+        checkoutItemPrice.textContent = `$${itemPrice}`;
+        
+        checkoutModal.classList.add("active");
+    });
+});
+
+closeCheckout.addEventListener("click", () => {
+    checkoutModal.classList.remove("active");
+});
+
+window.addEventListener("click", (e) => {
+    if (e.target === checkoutModal) {
+        checkoutModal.classList.remove("active");
+    }
+});
+
+// Payment Method Selection
+payBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+        payBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+    });
+});
+
+document.querySelector(".btn-generate-invoice").addEventListener("click", function() {
+    this.textContent = "GENERATING INVOICE...";
+    this.style.background = "#5865F2";
+    setTimeout(() => {
+        this.textContent = "REDIRECTING TO GATEWAY...";
+        setTimeout(() => {
+            window.location.href = "https://discord.gg/yTX7Nh6r";
+        }, 1500);
+    }, 1500);
+});
+

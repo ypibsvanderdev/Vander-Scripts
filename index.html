@@ -76,7 +76,8 @@
                     </ul>
                     <div class="card-footer">
                         <span class="price">$14.99 <small>Lifetime</small></span>
-                        <button class="btn-buy">Purchase</button>
+                        <button class="btn-buy purchase-btn" data-name="Anti-Kick VIP Bypass"
+                            data-price="9.99">Purchase</button>
                     </div>
                 </div>
             </div>
@@ -98,7 +99,8 @@
                     </ul>
                     <div class="card-footer">
                         <span class="price">$9.99 <small>Lifetime</small></span>
-                        <button class="btn-buy">Purchase</button>
+                        <button class="btn-buy purchase-btn" data-name="Anti-Kick VIP Bypass"
+                            data-price="9.99">Purchase</button>
                     </div>
                 </div>
             </div>
@@ -120,7 +122,8 @@
                     </ul>
                     <div class="card-footer">
                         <span class="price">$19.99 <small>/ month</small></span>
-                        <button class="btn-buy premium-btn">Subscribe</button>
+                        <button class="btn-buy premium-btn purchase-btn" data-name="Vander Elite Hub"
+                            data-price="19.99/mo">Subscribe</button>
                     </div>
                 </div>
             </div>
@@ -183,13 +186,50 @@
                 </form>
             </div>
 
-            <p class="terms">By logging in, you agree to our <a href="#">Terms of Service</a>.</p>
         </div>
-    </div>
 
-    <!-- Particles.js Integration for extra animation depth -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="script.js"></script>
+        <!-- Advanced Checkout Application -->
+        <div id="checkoutModal" class="modal-overlay checkout-overlay">
+            <div class="checkout-app">
+                <div class="checkout-header">
+                    <h3><span class="highlight">VANDER</span> SECURE PAY</h3>
+                    <button id="closeCheckout" class="btn-close">&times;</button>
+                </div>
+
+                <div class="checkout-body">
+                    <div class="order-summary">
+                        <p class="summary-label">ORDER SUMMARY</p>
+                        <h2 id="checkout-item-name">Premium Script</h2>
+                        <h1 id="checkout-item-price" class="gradient-text">$0.00</h1>
+                        <div class="security-badge">🔒 End-to-End Encrypted</div>
+                    </div>
+
+                    <div class="payment-methods">
+                        <p class="method-label">SELECT PAYMENT VAULT</p>
+                        <div class="method-grid">
+                            <button class="pay-btn crypto"><img
+                                    src="https://cryptologos.cc/logos/bitcoin-btc-logo.svg?v=026" alt="Crypto">
+                                Crypto</button>
+                            <button class="pay-btn cashapp"><img
+                                    src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Square_Cash_app_logo.svg"
+                                    alt="CashApp"> CashApp</button>
+                            <button class="pay-btn applepay"><img
+                                    src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Apple_Pay_logo.svg"
+                                    alt="Apple Pay"> Apple Pay</button>
+                            <button class="pay-btn card"><img
+                                    src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg"
+                                    alt="Card"> Card</button>
+                        </div>
+                    </div>
+
+                    <button class="btn-generate-invoice shine-fx">GENERATE INVOICE ⚡</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Particles.js Integration for extra animation depth -->
+        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+        <script src="script.js"></script>
 </body>
 
 </html>

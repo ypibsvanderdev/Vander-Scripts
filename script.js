@@ -246,16 +246,42 @@ tabSignup.addEventListener("click", () => setTabState("signup"));
 const discordLogin = document.getElementById("discordLogin");
 const googleLogin = document.getElementById("googleLogin");
 
-function simulateOAuthPath(btnElement, defaultText, newText) {
+function simulateOAuthPath(btnElement, defaultText, newText, providerName) {
     btnElement.addEventListener("click", function () {
         this.innerHTML = `<span style="opacity: 0.8;">${newText}</span>`;
         this.style.pointerEvents = "none";
 
         setTimeout(() => {
-            window.location.href = "https://discord.gg/yTX7Nh6r";
+            // Simulate Token Generation & Route to Premium Dashboard
+            localStorage.setItem("vander_session", JSON.stringify({
+                username: providerName + " Client",
+                time: Date.now()
+            }));
+            window.location.href = "dashboard.html";
         }, 1500);
     });
 }
 
-simulateOAuthPath(discordLogin, "Continue with Discord", "Authenticating via Discord...");
-simulateOAuthPath(googleLogin, "Continue with Google", "Authenticating via Google...");
+simulateOAuthPath(discordLogin, "Continue with Discord", "Authenticating via Discord...", "Discord");
+simulateOAuthPath(googleLogin, "Continue with Google", "Authenticating via Google...", "Google");
+
+// Manual Login/Register Submission Logic
+if (authSubmitBtn) {
+    authSubmitBtn.addEventListener("click", () => {
+        const originalText = authSubmitBtn.textContent;
+        authSubmitBtn.textContent = "Verifying Credentials...";
+        authSubmitBtn.style.pointerEvents = "none";
+
+        setTimeout(() => {
+            const rawInput = authEmail.value || document.getElementById("authKey").value || "Root Administrator";
+            const username = rawInput.split('@')[0]; // Quick text extraction for demo
+
+            localStorage.setItem("vander_session", JSON.stringify({
+                username: username,
+                time: Date.now()
+            }));
+
+            window.location.href = "dashboard.html";
+        }, 1200);
+    });
+}

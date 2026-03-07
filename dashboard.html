@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vander Elite | Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Dynamic Background Elements -->
+    <div id="particles-js"></div>
+    <div id="blob"></div>
+    <div id="blur" style="pointer-events: none;"></div>
+
+    <div class="dashboard-container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="nav-logo" style="padding: 2rem;">
+                <span class="highlight">VANDER</span> ELITE
+            </div>
+            <nav class="side-nav">
+                <a href="#" class="active"><span class="icon">📊</span> Overview</a>
+                <a href="#"><span class="icon">🔑</span> License Keys</a>
+                <a href="#"><span class="icon">⬇️</span> Downloads</a>
+                <a href="#"><span class="icon">⚙️</span> Settings</a>
+                <a href="#" id="logoutBtn" style="color: #ff3366; margin-top: auto;"><span class="icon">🚪</span>
+                    Logout</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <header class="dashboard-header">
+                <div>
+                    <h2>Welcome back, <span class="gradient-text" id="usernameDisplay">Elite Member</span></h2>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Your automation empire is running smoothly.
+                    </p>
+                </div>
+                <div class="user-profile">
+                    <img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a69f118df70ad7828d4_icon_clyde_blurple_RGB.svg"
+                        alt="Profile" class="avatar">
+                </div>
+            </header>
+
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <p class="stat-title">ACTIVE SUBSCRIPTION</p>
+                    <h3 class="stat-value highlight">Lifetime</h3>
+                    <p class="stat-desc">Vander Elite Hub Access</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-title">TOTAL SNIPES</p>
+                    <h3 class="stat-value">1,402</h3>
+                    <p class="stat-desc" style="color: #00ff88;">+124 This Week</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-title">EXECUTOR STATUS</p>
+                    <h3 class="stat-value" style="color: #2196f3;">UNDETECTED</h3>
+                    <p class="stat-desc">Byfron Bypass V9 Active</p>
+                </div>
+            </section>
+
+            <section class="dashboard-content">
+                <div class="content-panel">
+                    <h3>Recent Hardware Logs</h3>
+                    <table class="hardware-table">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Action</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="color: var(--text-muted);">Today, 15:42</td>
+                                <td>Client Injected</td>
+                                <td><span class="status pulse">Success</span></td>
+                            </tr>
+                            <tr>
+                                <td style="color: var(--text-muted);">Today, 14:10</td>
+                                <td>Auto-Sniper Triggered</td>
+                                <td><span class="status pulse">Success</span></td>
+                            </tr>
+                            <tr>
+                                <td style="color: var(--text-muted);">Yesterday, 09:22</td>
+                                <td>License Verified</td>
+                                <td><span class="status pulse">Authorized</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="content-panel">
+                    <h3>Quick Actions</h3>
+                    <div class="action-grid">
+                        <button class="action-btn shine-fx">Download Loader (.exe)</button>
+                        <button class="action-btn shine-fx"
+                            style="background: transparent; border: 1px solid var(--primary); color: var(--primary);">Generate
+                            Auth Key</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="script.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,227 @@
+/* Dashboard Ultra-Premium Layout */
+body {
+    overflow: hidden;
+}
+
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(15, 16, 21, 0.7);
+    backdrop-filter: blur(15px);
+}
+
+.sidebar {
+    width: 250px;
+    background: rgba(5, 6, 8, 0.95);
+    border-right: 1px solid var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.side-nav {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 0 1rem 2rem 1rem;
+    gap: 0.5rem;
+}
+
+.side-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-weight: 600;
+}
+
+.side-nav a:hover,
+.side-nav a.active {
+    background: rgba(33, 150, 243, 0.1);
+    color: var(--text-main);
+    transform: translateX(5px);
+}
+
+.side-nav a.active {
+    border-left: 3px solid var(--primary);
+    background: linear-gradient(90deg, rgba(33, 150, 243, 0.2), transparent);
+}
+
+.icon {
+    font-size: 1.2rem;
+}
+
+/* Main Working Area */
+.dashboard-main {
+    flex: 1;
+    padding: 3rem;
+    overflow-y: auto;
+    position: relative;
+    z-index: 1;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(88, 101, 242, 0.2);
+    border: 2px solid var(--primary);
+    padding: 5px;
+    box-shadow: 0 0 15px var(--primary-glow);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    background: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: 16px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.stat-title {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.stat-desc {
+    font-size: 0.9rem;
+    font-family: var(--font-mono);
+}
+
+.dashboard-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+.content-panel {
+    background: var(--bg-secondary);
+    border-radius: 16px;
+    border: 1px solid var(--glass-border);
+    padding: 2rem;
+}
+
+.content-panel h3 {
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.hardware-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+}
+
+.hardware-table th,
+.hardware-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.hardware-table th {
+    color: var(--text-muted);
+    font-weight: 600;
+    font-family: var(--font-heading);
+}
+
+.action-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.action-btn {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 8px;
+    border: none;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    background: var(--text-main);
+    color: #000;
+    transition: 0.3s;
+}
+
+.action-btn:hover {
+    transform: scale(1.02);
+}
+
+/* Mobile Dash Support */
+@media screen and (max-width: 900px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1rem;
+    }
+
+    .side-nav {
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 0;
+        align-items: center;
+    }
+
+    .dashboard-content {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .side-nav a span {
+        display: none;
+    }
+
+    body {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+}

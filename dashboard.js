@@ -64,8 +64,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.body.addEventListener("click", (e) => {
         if (e.target.classList.contains("copy-code-btn")) {
             const fileName = e.target.getAttribute("data-file");
-            // Points to the secure tunneled bridge - NO RAW URLS
-            const loaderCode = `loadstring(game:HttpGet("https://sushix-protect-elite.onrender.com/v1/sx/secure-tunnel/${fileName}"))()`;
+            // Points back to the classic raw route
+            const loaderCode = `loadstring(game:HttpGet("https://sushix-protect-elite.onrender.com/raw/${fileName}"))()`;
 
             navigator.clipboard.writeText(loaderCode).then(() => {
                 const originalText = e.target.textContent;
